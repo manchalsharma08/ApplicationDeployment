@@ -63,9 +63,14 @@ stages:
                     kubernetesCluster: '$(aksCluster)'
                     useClusterAdmin: true
 
-                - script: |
-                    echo "Updating image in manifest"
-                    sed -i 's|Myacr01.azurecr.io/user-service:v1|Myacr01.azurecr.io/user-service:$(Build.BuildId)|' manifests/user-deployment.yaml
+                # - script: |    ### Use bash for Linux/macOS agents
+                #     echo "Updating image in manifest"
+                #     sed -i 's|Myacr01.azurecr.io/user-service:v1|Myacr01.azurecr.io/user-service:$(Build.BuildId)|' manifests/user-deployment.yaml
+                #   displayName: 'Update manifest image tag'
+
+                - powershell: |   ### Use PowerShell for Windows agents
+                    Write-Host "Updating image in manifest"
+                    (Get-Content manifests/user-deployment.yaml) -replace 'Myacr01.azurecr.io/user-service:v1', "Myacr01.azurecr.io/user-service:$(Build.BuildId)" | Set-Content manifests/user-deployment.yaml
                   displayName: 'Update manifest image tag'
 
                 - task: Kubernetes@1
