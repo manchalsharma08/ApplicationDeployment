@@ -6,7 +6,7 @@ pool: Default
 
 variables:
   azureSubscription: 'ApplicationSC'
-  acrName: 'Myacrc01'
+  acrName: 'hello01'
   imageName: 'user-service'
   aksCluster: 'myAKSCluster'
   resourceGroup: 'MyRGc'
@@ -24,7 +24,7 @@ stages:
             displayName: 'Build and push image to ACR'
             inputs:
               containerRegistry: 'acrSC'
-              repository: 'Myacrc01'
+              repository: 'hello01'    ## need to fill correct ACR login server name
               command: 'buildAndPush'
               Dockerfile: 'user-service/Dockerfile'
               tags: |
@@ -65,12 +65,12 @@ stages:
 
                 # - script: |    ### Use bash for Linux/macOS agents
                 #     echo "Updating image in manifest"
-                #     sed -i 's|Myacrc01.azurecr.io/user-service:v1|Myacrc01.azurecr.io/user-service:$(Build.BuildId)|' manifests/user-deployment.yaml
+                #     sed -i 's|hello01.azurecr.io/user-service:v1|hello01.azurecr.io/user-service:$(Build.BuildId)|' manifests/user-deployment.yaml
                 #   displayName: 'Update manifest image tag'
 
                 - powershell: |   ### Use PowerShell for Windows agents
                     Write-Host "Updating image in manifest"
-                    (Get-Content manifests/user-deployment.yaml) -replace 'Myacrc01.azurecr.io/user-service:v1', "Myacrc01.azurecr.io/user-service:$(Build.BuildId)" | Set-Content manifests/user-deployment.yaml
+                    (Get-Content manifests/user-deployment.yaml) -replace 'hello01.azurecr.io/user-service:v1', "hello01.azurecr.io/user-service:$(Build.BuildId)" | Set-Content manifests/user-deployment.yaml
                   displayName: 'Update manifest image tag'
 
                 - task: Kubernetes@1
