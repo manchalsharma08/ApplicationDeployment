@@ -4,7 +4,7 @@ trigger:
       - main
 
 variables:
-  azureSubscription: 'acrSC'
+  azureSubscription: 'ApplicationSC'
   acrName: 'Myacrc01'
   imageName: 'user-service'
   aksCluster: 'myAKSCluster'
