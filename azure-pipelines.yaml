@@ -6,7 +6,7 @@ pool: Default
 
 variables:
   azureSubscription: 'ApplicationSC'
-  acrName: 'hello01'
+  acrName: 'hello01-f8a3d9g6hzgqa7du.azurecr.io'
   imageName: 'user-service'
   aksCluster: 'myAKSCluster'
   resourceGroup: 'MyRGc'
@@ -70,7 +70,7 @@ stages:
 
                 - powershell: |   ### Use PowerShell for Windows agents
                     Write-Host "Updating image in manifest"
-                    (Get-Content manifests/user-deployment.yaml) -replace 'hello01.azurecr.io/user-service:v1', "hello01.azurecr.io/user-service:$(Build.BuildId)" | Set-Content manifests/user-deployment.yaml
+                    (Get-Content manifests/user-deployment.yaml) -replace 'hello01-f8a3d9g6hzgqa7du.azurecr.io/user-service:v1', "hello01-f8a3d9g6hzgqa7du.azurecr.io/user-service:$(Build.BuildId)" | Set-Content manifests/user-deployment.yaml
                   displayName: 'Update manifest image tag'
 
                 - task: Kubernetes@1
