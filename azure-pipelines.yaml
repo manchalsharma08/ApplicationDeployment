@@ -24,7 +24,7 @@ stages:
             displayName: 'Build and push image to ACR'
             inputs:
               containerRegistry: 'hello01SC'
-              repository: 'hello01'
+              repository: 'user-service'
               command: 'buildAndPush'
               Dockerfile: 'user-service/Dockerfile'
               tags: |
